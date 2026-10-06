@@ -1,0 +1,9 @@
+{
+  "name": "yohak-booking-ops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Staging-only Apps Script for Yohak booking and passenger operations",
+  "scripts": {
+    "test": "node test.cjs"
+  }
+}
