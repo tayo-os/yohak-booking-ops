@@ -31,6 +31,10 @@ Playwright passed the four-person form journey in the isolated preview: acknowle
 
 Apps Script upload was attempted through a separate read-only clasp pull; it returned `No credentials found`. The local Comet session also failed to connect. No source was pushed to Google, no deployment changed, no script properties enabled and no guest link issued.
 
+The deployed private demo preview was opened in a fresh browser context at 375px. Partial save, next-passenger navigation, returning to Guest 1 with preserved input, visible demo disclosure and no horizontal overflow all passed. This preview is a separate synthetic demonstration, not the Google web-app deployment.
+
+The initial [GitHub Actions test run](https://github.com/tayo-os/yohak-booking-ops/actions/runs/39712875249) completed successfully. Code review is tracked in [draft PR #1](https://github.com/tayo-os/yohak-booking-ops/pull/1); main has not been merged.
+
 ## Not yet verified
 
 - Upload to the user's actual Apps Script project.
