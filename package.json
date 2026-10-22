@@ -1,9 +1,14 @@
 {
   "name": "yohak-booking-ops",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Staging-only Apps Script for Yohak booking and passenger operations",
   "scripts": {
-    "test": "node test.cjs"
-  }
+    "test": "node test.cjs && node --test portal.test.cjs booking-entry.test.cjs",
+    "preview:build": "node tools/build-preview.cjs",
+    "gas:configure": "node tools/gas-configure.cjs",
+    "gas:status": "clasp show-file-status",
+    "gas:push": "node tools/gas-push.cjs"
+  },
+  "devDependencies": {"@google/clasp": "3.4.1"}
 }

@@ -1,6 +1,23 @@
 # Yohak Booking Ops
 
-Candidate Apps Script module for a two-working-tab booking workbook. This code is not installed, not production-verified, and does not activate guest messaging or website synchronization.
+Staging candidate for a two-working-tab booking workbook and a private-link guest-details portal. The original booking installer was shown completing in the owner's screenshot; **this expanded guest-portal version has not been uploaded or production-verified**. No guest messaging or website inventory synchronization is activated.
+
+## Guest portal increment
+
+- One party link for a confirmed booking; all passengers are entered in one mobile form.
+- Save progress, return later, and submit for staff review.
+- Updates existing guest slots through an allowlisted atomic Sheets batch.
+- Hashed expiring tokens, revocation, manifest edit lock, stale-form detection and duplicate-save receipts.
+- Staff menu generates links for manual WhatsApp sharing; no automated emails.
+- Private STAGING workbook required; anonymous users cannot invoke staff actions.
+
+Start with [Staff workflow and security](docs/GUEST-INTAKE.md), [Cursor and Apps Script setup](docs/CURSOR-AND-APPS-SCRIPT.md), and [QA status](docs/QA-RESULTS.md).
+
+## SeaTours-inspired staff entry
+
+`BookingEntry.gs` adds a per-staff New booking form and a Create booking + guest slots action. It writes the booking, blank passengers and replay receipt in one Sheets batch. It remains private-STAGING only and cannot confirm payment/capacity or send messages. Read [staff entry and manifest rollout](docs/STAFF-ENTRY-AND-MANIFESTS.md).
+
+`tools/sheet-views.cjs` generates additive Booking Desk, website-only master view and clean Ops-manifest plans from workbook metadata. It never calls Google itself. Existing handwritten manifests and the official CG readiness checks must remain untouched.
 
 ## Scope
 
@@ -12,14 +29,14 @@ Candidate Apps Script module for a two-working-tab booking workbook. This code i
 - Exact product/date matching only when there is one departure candidate.
 - No guessed boat assignment, legal capacity, payment verification or guest identity.
 
-The workbook formulas handle effective expiry and visible completion. This module does not overwrite the stored PENCIL status, auto-confirm payment, or send messages. A guest-form response remains unverified intake; no ingestion handler is included.
+The workbook formulas handle effective expiry and visible completion. This module does not overwrite the stored PENCIL status, auto-confirm payment, or send messages. GuestPortal.gs collects passenger details only; staff remain responsible for manifest, booking and service approval.
 
 ## Staging installation
 
 1. Copy the approved workbook to a private workbook whose name includes `STAGING`.
 2. Confirm timezone Asia/Manila. Do not copy guest data into a public repository.
 3. Inspect any existing bound script and triggers. Do not replace or delete existing code.
-4. Add `BookingOps.gs` as a separate module. There are no default `onEdit` / `onOpen` names, avoiding dispatcher collisions.
+4. Follow the new Cursor setup guide for all three source files and the manifest. A guarded `onOpen` now adds the menu; merge deliberately if another onOpen exists. Never retain duplicate old Code.gs definitions.
 5. Run `yohakInstallStaging` as the staging workbook owner, review requested Google permissions, then authorize if appropriate.
 6. Test real spreadsheet edits using synthetic records. The local test file checks pure functions only.
 7. Stop on schema mismatch, runtime failure, duplicate references or insufficient free rows. Check execution logs and reconcile partial writes before retry.
@@ -48,7 +65,7 @@ The trigger does not run for API writes, form responses or WooCommerce imports. 
 
 ## Development in Cursor
 
-Use this module as a staging candidate, not as proof of live deployment. Run `node test.cjs`. Build mocks for the spreadsheet adapter and test interrupted writes, concurrent edits, schema migration and pasted ranges before adding production installation.
+Use this module as a staging candidate, not as proof of live deployment. Run `npm test`. Synthetic adapter tests are included; actual Google runtime tests, schema migration and pasted-range tests remain required before production installation.
 
 Current pilot bounds are Bookings rows 4-304 and All Guests rows 4-503, deliberately excluding workbook examples. Do not silently increase just one range: counts, validation, manifests, source checks and scripts must be expanded together.
 
@@ -61,8 +78,10 @@ Repository: `tayo-os/yohak-booking-ops`. Public code-only publication was approv
 ## Files and checks
 
 - `BookingOps.gs`: disabled-by-default, bound Apps Script candidate.
-- `appsscript.json`: V8 manifest with spreadsheet and trigger-management scopes.
-- `test.cjs`: synthetic pure-function tests; run `npm test`.
-- `.claspignore`: allows only the script and manifest to be pushed to Apps Script.
+- `GuestPortal.gs` / `GuestPortal.html`: private-link intake backend and guest form.
+- `appsscript.json`: V8 manifest, Advanced Sheets API and reviewed spreadsheet/Drive/email-identity scopes.
+- `test.cjs` / `portal.test.cjs`: pure-function and synthetic adapter tests; run `npm test`.
+- `.claspignore`: allows only the three application source files and manifest to be pushed.
+- `tools/`: guarded staging upload and isolated preview build; no credentials included.
 
 To work in Cursor, clone this repository and run `npm test`. Keep all actual spreadsheet IDs and clasp credentials local. Production activation remains a separate review gate.
