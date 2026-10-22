@@ -1,0 +1,8 @@
+---
+description: Yohak booking and guest intake safety boundaries
+alwaysApply: true
+---
+
+Read and follow AGENTS.md. Use docs/CURSOR-AND-APPS-SCRIPT.md for staging updates.
+Keep public source free of guest data and credentials. Never bypass staging, private-workbook, token or staff authorization checks.
+Run npm test before proposing deployment. Keep Google uploads and deployment-version changes explicit and separately verified.

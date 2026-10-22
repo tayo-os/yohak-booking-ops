@@ -1,0 +1,11 @@
+const fs=require('node:fs');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const [scriptId]=process.argv.slice(2);
+if(!scriptId||!/^[A-Za-z0-9_-]{30,150}$/.test(scriptId))throw Error('Usage: npm run gas:configure -- STAGING_SCRIPT_ID');
+const file=path.join(root,'.clasp.json');
+if(fs.existsSync(file))throw Error('.clasp.json already exists. Review it locally; this command will not overwrite your target.');
+fs.mkdirSync(path.join(root,'.local'),{recursive:true});
+fs.writeFileSync(file,JSON.stringify({scriptId,rootDir:'.'},null,2)+'\n',{mode:0o600});
+fs.writeFileSync(path.join(root,'.local/staging-target.json'),JSON.stringify({scriptId,environment:'STAGING'},null,2)+'\n',{mode:0o600});
+console.log('Local staging target configured. IDs are gitignored. No Google project was changed.');

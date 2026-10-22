@@ -11,3 +11,6 @@ logs/
 *credentials*.json
 *token*.json
 *service-account*.json
+.local/
+preview/
+test-results/

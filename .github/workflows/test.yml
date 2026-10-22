@@ -1,0 +1,16 @@
+name: Staging source tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # These tests need only Node built-ins. Never expose Google credentials to CI.
+      - run: node test.cjs && node --test portal.test.cjs

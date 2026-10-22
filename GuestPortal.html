@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Yohak | Guest details</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    :root{--bg:#f5f3ed;--paper:#fffefa;--ink:#203b3c;--muted:#536465;--line:#d5dcd5;--accent:#244f47;--soft:#e6eee7;--error:#9a302b;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-12:48px;--text-sm:clamp(.875rem,.84rem + .15vw,.95rem);--text-base:clamp(1rem,.97rem + .1vw,1.05rem);--text-lg:1.125rem;--text-xl:clamp(1.75rem,1.5rem + 1vw,2.25rem);--font-body:'Work Sans',sans-serif;--font-display:'Instrument Serif',serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:var(--text-base)/1.6 var(--font-body);-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}a{color:var(--accent)}[hidden]{display:none!important}button:disabled{cursor:wait;opacity:.65}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:12px;background:white;padding:12px;z-index:9}
+    header{max-width:1056px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:var(--space-6) var(--space-8);border-bottom:1px solid var(--line)}.wordmark{font-weight:600;letter-spacing:.28em;font-size:var(--text-lg)}.eyebrow{font-size:var(--text-sm);color:var(--muted)}main{max-width:1056px;margin:auto;padding:var(--space-12) var(--space-8)}.layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:var(--space-12)}h1{font:400 var(--text-xl)/1.1 var(--font-display);margin:0 0 var(--space-4)}h2{font-size:var(--text-lg);line-height:1.3;margin:0}p{margin:0 0 var(--space-5)}aside p{font-size:var(--text-sm);color:var(--muted)}.summary{margin-top:var(--space-8);border-block:1px solid var(--line);padding:var(--space-5) 0}.summary dt{font-size:var(--text-sm);color:var(--muted)}.summary dd{margin:0 0 var(--space-4);font-weight:500;overflow-wrap:anywhere}.summary dd:last-child{margin:0}.progress-label{font-size:var(--text-sm);margin-top:var(--space-5)}progress{width:100%;height:6px;accent-color:var(--accent);display:block;margin:var(--space-2) 0 var(--space-4)}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:var(--space-6);min-width:0}.panel-head{display:flex;justify-content:space-between;gap:var(--space-4);align-items:center;padding-bottom:var(--space-5);border-bottom:1px solid var(--line)}.steps{display:flex;flex-wrap:wrap;gap:var(--space-2);margin:var(--space-5) 0}.steps button{border:1px solid var(--line);background:transparent;min-width:44px;min-height:44px;border-radius:4px;padding:var(--space-2) var(--space-3);font-size:var(--text-sm)}.steps button[aria-current="step"]{background:var(--accent);color:white;border-color:var(--accent)}.steps button.done:not([aria-current="step"]){background:var(--soft)}
+    fieldset{border:0;margin:0;padding:0;min-width:0}legend{font-weight:600;margin:var(--space-2) 0 var(--space-4)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}label{display:block;font-size:var(--text-sm);font-weight:500}.wide{grid-column:1/-1}input:not([type=checkbox]),select,textarea{display:block;width:100%;min-height:48px;padding:var(--space-3);margin-top:var(--space-2);border:1px solid var(--line);border-radius:4px;background:white;font-size:var(--text-base)}textarea{resize:vertical;min-height:88px}input[aria-invalid=true]{border-color:var(--error)}.help{font-size:var(--text-sm);color:var(--muted);margin:var(--space-2) 0 var(--space-5)}details{margin-top:var(--space-5);border-top:1px solid var(--line);padding-top:var(--space-4)}summary{cursor:pointer;min-height:44px;padding:var(--space-2) 0;font-size:var(--text-sm)}details p{font-size:var(--text-sm);white-space:pre-wrap}.consent{display:flex;gap:var(--space-3);align-items:start;margin:var(--space-5) 0;font-weight:400}.consent input{width:20px;height:20px;flex-shrink:0;margin-top:var(--space-1)}.actions{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-6)}.actions button,.retry{min-height:48px;padding:var(--space-3) var(--space-5);border:1px solid var(--line);border-radius:4px;background:transparent}.actions .primary{background:var(--accent);color:white;border-color:var(--accent)}.message{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:var(--space-4);padding:var(--space-4);background:var(--soft);font-size:var(--text-sm)}.message.error{background:#fbeee8;color:var(--error)}.demo{max-width:1056px;margin:auto;background:var(--soft);padding:var(--space-3) var(--space-8);font-size:var(--text-sm)}footer{max-width:1056px;margin:auto;padding:var(--space-6) var(--space-8);border-top:1px solid var(--line);font-size:var(--text-sm);color:var(--muted)}.loading{padding:var(--space-12);text-align:center}.toolbar{display:flex;align-items:center;gap:var(--space-2)}.count{font-size:var(--text-sm);color:var(--muted)}
+    @media(max-width:720px){header{padding:var(--space-5)}main{padding:var(--space-6) var(--space-4)}.layout{grid-template-columns:1fr;gap:var(--space-6)}.summary{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-5)}.summary div:last-child{grid-column:1/-1}.summary dd{margin:0}.panel{padding:var(--space-5)}.grid{gap:var(--space-3)}.actions button{flex:1}.demo,footer{padding:var(--space-4)}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to guest details</a>
+<header><span class="wordmark" aria-label="Yohak">YOHAK</span><span class="eyebrow">Before your journey</span></header>
+<div id="demo" class="demo" hidden>DEMO ONLY · Fictional details only. No Sheets or email connection. Reload resets entries.</div>
+<main id="main">
+  <div id="loading" class="panel loading" role="status">Opening your private guest form…</div>
+  <section id="fatal" class="panel" hidden><h1>Let’s reconnect your booking</h1><p id="fatalText"></p><button class="retry" id="retry">Try again</button><p class="help">If this continues, reply to your Yohak booking agent for a new link.</p></section>
+  <div id="app" class="layout" hidden>
+    <aside>
+      <p class="eyebrow">GUEST DETAILS</p>
+      <h1>Your guest details</h1>
+      <p>Add everyone travelling. Save your progress and finish later using this same private link.</p>
+      <dl class="summary">
+        <div><dt>Your tour</dt><dd id="tour"></dd></div>
+        <div><dt>Tour date</dt><dd id="tourDate"></dd></div>
+        <div><dt>Booking reference</dt><dd id="reference"></dd></div>
+      </dl>
+      <div class="progress-label" id="progressText" aria-live="polite"></div><progress id="progress" value="0" max="4"></progress>
+      <details><summary>Changes to your booking?</summary><p>For date or guest-count changes, contact your booking agent. Keep this link within your travelling party.</p></details>
+    </aside>
+    <section class="panel" aria-label="Passenger information">
+      <div class="panel-head"><h2>Your travelling party</h2><span id="pax" class="count"></span></div>
+      <nav id="steps" class="steps" aria-label="Choose passenger"></nav>
+      <form id="form" novalidate>
+        <fieldset><legend id="guestTitle">Guest 1</legend>
+          <div class="grid">
+            <label class="wide" for="name">Full name as on identification<input id="name" name="name" maxlength="120" autocomplete="off"></label>
+            <label for="age">Age on tour date<input id="age" name="age" type="number" min="0" max="120" step="1" inputmode="numeric"></label>
+            <label for="gender">Sex / manifest entry<select id="gender" name="gender"><option value="">Choose</option><option value="M">Male</option><option value="F">Female</option><option value="X">Other / discuss with team</option></select></label>
+            <label class="wide" for="nationality">Nationality<input id="nationality" name="nationality" maxlength="120" autocomplete="off"></label>
+          </div>
+          <p class="help">Use the passenger’s details, not necessarily the person who paid. Children also need their own passenger entry.</p>
+          <details id="service" open><summary>Meals &amp; comfort</summary>
+            <div class="grid">
+              <label class="wide" for="allergies">Food allergies<input id="allergies" name="allergies" maxlength="300" placeholder="Write None if no known allergies"></label>
+              <label class="wide" for="dietary">Dietary requirements<input id="dietary" name="dietary" maxlength="300" placeholder="Write None if no dietary requirements"></label>
+              <label class="wide" for="requests">Other requests <span class="count">(optional)</span><textarea id="requests" name="requests" maxlength="500" placeholder="Share only what our team needs to arrange your tour."></textarea></label>
+            </div>
+            <p class="help">Requests are subject to team confirmation. Please do not enter passport numbers, payment details or medical documents.</p>
+          </details>
+        </fieldset>
+        <details><summary>How your details will be used</summary><p id="privacy"></p></details>
+        <label class="consent"><input id="consent" type="checkbox"><span>I have read the notice and am authorised to provide these details for this travelling party, including guardian authorisation where needed.</span></label>
+        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+        <div class="actions">
+          <button id="save" type="button">Save progress</button>
+          <button id="next" type="button" class="primary">Next guest</button>
+        </div>
+        <p class="help" style="margin-top:var(--space-4)">Completing this form does not change your booking or payment status. Our team reviews your information before preparing the final manifest.</p>
+      </form>
+    </section>
+  </div>
+</main>
+<footer>Yohak · Guest services · Need help? Reply to your booking agent.</footer>
+<script>
+(() => {
+  'use strict';
+  const fields=['name','age','gender','nationality','allergies','dietary','requests'];
+  const $=id=>document.getElementById(id);
+  const gas=!!(window.google&&google.script&&google.script.run);
+  const demo=!gas&&new URLSearchParams(location.search).get('demo')==='1';
+  let token='',model=null,current=0,busy=false,pending=null,dirty=false;
+  let demoModel={reference:'YHK-DEMO-0001',tour:'Private speedboat',date:'2026-11-20',pax:4,revision:'demo-0',
+    privacyNotice:'Demonstration only. Do not enter real guest details. In the live pilot, Yohak must configure its approved privacy notice before links can be issued.',
+    guests:Array.from({length:4},(_,i)=>Object.assign({number:i+1},Object.fromEntries(fields.map(k=>[k,'']))))};
+  function complete(g){return !!(g.name&&g.age!==''&&g.gender&&g.nationality&&g.allergies&&g.dietary);}
+  function message(text,error=false){$('message').hidden=false;$('message').textContent=text;$('message').classList.toggle('error',error);}
+  function capture(){if(!model)return;fields.forEach(k=>model.guests[current][k]=$(k).value.trim());}
+  function progress(){const n=model.guests.filter(complete).length;$('progressText').textContent=n+' of '+model.pax+' guests filled in';$('progress').max=model.pax;$('progress').value=n;}
+  function steps(){
+    $('steps').replaceChildren();
+    model.guests.forEach((g,i)=>{
+      const b=document.createElement('button');b.type='button';b.textContent='Guest '+g.number+(complete(g)?' ✓':'');
+      b.disabled=busy;b.classList.toggle('done',complete(g));if(i===current)b.setAttribute('aria-current','step');
+      b.addEventListener('click',()=>{capture();current=i;renderGuest();});$('steps').append(b);
+    });progress();
+  }
+  function renderGuest(){
+    fields.forEach(k=>$(k).value=model.guests[current][k]);
+    $('guestTitle').textContent='Guest '+(current+1)+' of '+model.pax;
+    $('next').textContent=current===model.pax-1?'Submit all details':'Next guest';
+    steps();
+  }
+  function render(){
+    $('tour').textContent=model.tour;
+    $('tourDate').textContent=new Date(model.date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    $('reference').textContent=model.reference;$('pax').textContent=model.pax+' guests';
+    if(model.privacyNotice)$('privacy').textContent=model.privacyNotice;
+    $('loading').hidden=true;$('fatal').hidden=true;$('app').hidden=false;renderGuest();
+  }
+  function failure(text){$('loading').hidden=true;$('app').hidden=true;$('fatal').hidden=false;$('fatalText').textContent=text;}
+  function rpc(name,...args){
+    return new Promise((resolve,reject)=>{
+      if(demo){
+        if(name==='yohakGuestLoad'){resolve({ok:true,data:structuredClone(demoModel)});return;}
+        const p=args[1];demoModel.guests=structuredClone(p.guests);demoModel.revision='demo-'+Date.now();
+        resolve({ok:true,data:structuredClone(demoModel)});return;
+      }
+      google.script.run.withSuccessHandler(resolve).withFailureHandler(()=>reject(new Error('Connection interrupted. Your typed answers are still here. Retry Save progress.')))[name](...args);
+    });
+  }
+  async function load(){
+    $('fatal').hidden=true;$('loading').hidden=false;
+    try{const r=await rpc('yohakGuestLoad',token);if(!r.ok){failure(r.message);return;}model=r.data;current=0;dirty=false;pending=null;render();}
+    catch(e){failure(e.message);}
+  }
+  function setBusy(value){busy=value;['save','next','consent',...fields].forEach(k=>$(k).disabled=value);steps();}
+  async function save(submit){
+    if(busy)return;capture();
+    if(!$('consent').checked){message('Please read the notice and confirm you are authorised to provide these details.',true);$('consent').focus();return;}
+    for(let i=0;i<model.guests.length;i++){
+      const g=model.guests[i];
+      if(g.age!==''&&(!/^\d{1,3}$/.test(g.age)||+g.age>120)){current=i;renderGuest();message('Age must be a whole number between 0 and 120.',true);$('age').focus();return;}
+      if(submit&&!complete(g)){current=i;renderGuest();message('Please finish Guest '+(i+1)+' or use Save progress to return later.',true);return;}
+    }
+    const body={revision:model.revision,acknowledged:true,submit,guests:structuredClone(model.guests)};
+    const signature=JSON.stringify(body);
+    if(!pending||pending.signature!==signature)pending={signature,payload:{...body,requestId:crypto.randomUUID()}};
+    setBusy(true);message('Saving your details…');
+    try{
+      const r=await rpc('yohakGuestSave',token,pending.payload);
+      if(!r.ok){message(r.message,true);return;}
+      const privacy=model.privacyNotice;model={...r.data,privacyNotice:privacy};pending=null;dirty=false;renderGuest();
+      message((demo?'Demo: ':'')+(submit?'Thank you. Your guest details have been submitted for team review.':'Progress saved. You can return using this same private link.')+(demo?' Nothing was sent to Yohak.':''));
+    }catch(e){message(e.message,true);}finally{setBusy(false);}
+  }
+  fields.forEach(k=>$(k).addEventListener('input',()=>{dirty=true;capture();progress();}));
+  $('save').addEventListener('click',()=>save(false));
+  $('next').addEventListener('click',()=>{capture();if(current<model.pax-1){current++;renderGuest();$('guestTitle').scrollIntoView({block:'start'});}else save(true);});
+  $('form').addEventListener('submit',e=>{e.preventDefault();save(false);});
+  $('retry').addEventListener('click',()=>{if(demo||token)load();});
+  window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+  if(gas){google.script.url.getLocation(loc=>{token=new URLSearchParams(loc.hash||'').get('token')||'';if(!token){failure('Open the private guest-details link sent by your Yohak booking agent.');return;}load();});}
+  else if(demo){$('demo').hidden=false;load();}
+  else failure('Open your private Yohak guest link. This preview is not connected to a booking.');
+})();
+</script>
+</body>
+</html>

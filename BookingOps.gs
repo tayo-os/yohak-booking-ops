@@ -1,6 +1,7 @@
 /**
  * Yohak booking operations candidate. NOT INSTALLED / NOT PRODUCTION-VERIFIED.
- * Bound spreadsheet only. No external API, email, payment, Drive or website calls.
+ * Bound spreadsheet booking module. GuestPortal.gs adds separate guarded intake.
+ * No email, payment or website-inventory writes.
  * Current workbook pilot limits intentionally exclude the sample rows.
  */
 var YOH = {bookingStart:4, bookingEnd:304, guestStart:4, guestEnd:503, header:3};
@@ -45,14 +46,14 @@ function yohakNextRef_(refs,year) {
 }
 
 function yohakOpsOnEdit(e) {
-  if(!e||!e.range||!e.source)return;
+  if(!e||!e.range||!e.source||typeof e.range.getSheet!=='function')return;
   if(PropertiesService.getDocumentProperties().getProperty('YOH_BOOKING_OPS_ENABLED')!=='true')return;
   var b=e.source.getSheetByName('Bookings');
   if(!b||e.range.getSheet().getSheetId()!==b.getSheetId())return;
   var first=Math.max(e.range.getRow(),YOH.bookingStart);
   var last=Math.min(e.range.getLastRow(),YOH.bookingEnd);
   if(first>last)return;
-  var lock=LockService.getDocumentLock();
+  var lock=LockService.getScriptLock();
   if(!lock.tryLock(5000)){e.source.toast('Booking sync busy. Use Yohak Ops > Sync selected booking.');return;}
   try{
     var bm=yohakHeaderMap_(b);
@@ -72,14 +73,39 @@ function yohakOpsOnEdit(e) {
     for(var row=first;row<=last;row++){
       var statusCol=bm['BOOKING STATUS']+1;
       var touchedStatus=e.range.getColumn()<=statusCol && e.range.getLastColumn()>=statusCol;
+      var touched=function(name){var col=bm[name]+1;return e.range.getColumn()<=col&&e.range.getLastColumn()>=col;};
+      if(touched('SELECT TRIP')&&!touched('TOUR DATE')&&!touched('TOUR'))yohakApplySelectedTrip_(e.source,row,bm);
       yohakSyncBooking_(e.source,row,touchedStatus);
     }
   }finally{lock.releaseLock();}
 }
 
+function yohakResolveTrip_(current,matches) {
+  if(matches.length===1)return matches[0][0];
+  return matches.some(function(d){return d[0]===current;})?current:'';
+}
+function yohakApplySelectedTrip_(ss,row,bm) {
+  var b=ss.getSheetByName('Bookings'),id=b.getRange(row,bm['SELECT TRIP']+1).getValue();
+  if(!id)return;
+  var dep=ss.getSheetByName('11 Departures').getRange('A2:F101').getValues().filter(function(d){return d[0]===id;});
+  if(dep.length!==1||['CANCELLED','DEPARTED','COMPLETED'].indexOf(dep[0][5])>=0)throw Error('Select an eligible exact trip.');
+  var product=ss.getSheetByName('10 Products').getRange('A2:B7').getValues().filter(function(p){return p[0]===dep[0][2];});
+  if(product.length!==1||!(dep[0][3] instanceof Date))throw Error('Selected trip has invalid product/date.');
+  b.getRange(row,bm['TOUR DATE']+1).setValue(dep[0][3]);
+  b.getRange(row,bm.TOUR+1).setValue(product[0][1]);
+}
+function yohakClearTrip_(b,row,bm,br) {
+  // Preserve the intended tour/date before clearing a link they may currently depend on.
+  b.getRange(row,bm['TOUR DATE']+1).setValue(br[bm['TOUR DATE']]);
+  b.getRange(row,bm.TOUR+1).setValue(br[bm.TOUR]);
+  b.getRange(row,bm['SELECT TRIP']+1).clearContent();
+}
 function yohakSyncBooking_(ss,row,stampPencil) {
   var b=ss.getSheetByName('Bookings'),g=ss.getSheetByName('All Guests');
+  if(!b||!g)throw Error('Missing Bookings or All Guests tab.');
   var bm=yohakHeaderMap_(b),gm=yohakHeaderMap_(g);
+  yohakNeed_(bm,['BOOKING LINK (KEEP)','BOOKING CONTACT','PAX (EDIT HERE)','BOOKING STATUS',
+    'PENCIL STARTED AT (PHT)','SELECT TRIP','TOUR DATE','TOUR']);
   yohakNeed_(gm,['BOOKING LINK (KEEP)','GUEST','STATUS','PASSENGER FULL NAME','INTERNAL NOTE','SERVICE INFO STATUS']);
   var br=b.getRange(row,1,1,b.getLastColumn()).getValues()[0];
   var ref=String(br[bm['BOOKING LINK (KEEP)']]||'').trim(),pax=br[bm['PAX (EDIT HERE)']];
@@ -136,30 +162,51 @@ function yohakSyncBooking_(ss,row,stampPencil) {
         Utilities.formatDate(d[3],'Asia/Manila','yyyy-MM-dd')===day&&
         ['CANCELLED','COMPLETED','DEPARTED'].indexOf(d[5])<0;
     });
-    if(matches.length===1)b.getRange(row,bm['SELECT TRIP']+1).setValue(matches[0][0]);
-    else if(matches.length!==1)ss.toast(ref+': select the exact trip manually. No unique match.');
+    var resolved=yohakResolveTrip_(br[bm['SELECT TRIP']],matches);
+    if(resolved)b.getRange(row,bm['SELECT TRIP']+1).setValue(resolved);
+    else {
+      yohakClearTrip_(b,row,bm,br);
+      ss.toast(ref+': select the exact trip manually. No unique match.');
+    }
+  } else if(br[bm['SELECT TRIP']]) {
+    yohakClearTrip_(b,row,bm,br);
+    ss.toast(ref+': tour or date is invalid. Select the exact trip again.');
   }
 }
 
 function yohakSyncSelectedBooking() {
+  ygpStaff_();
   var ss=SpreadsheetApp.getActive(),range=ss.getActiveRange();
   if(range.getSheet().getName()!=='Bookings'||range.getRow()<YOH.bookingStart||range.getRow()>YOH.bookingEnd)
     throw Error('Select a live Bookings row (4-304).');
   if(PropertiesService.getDocumentProperties().getProperty('YOH_BOOKING_OPS_ENABLED')!=='true')
     throw Error('Automation disabled. Complete staging tests first.');
-  var lock=LockService.getDocumentLock();lock.waitLock(10000);
+  var lock=LockService.getScriptLock();lock.waitLock(10000);
   try{yohakSyncBooking_(ss,range.getRow(),false);}finally{lock.releaseLock();}
 }
 function yohakOpsOnOpen() {
-  SpreadsheetApp.getUi().createMenu('Yohak Ops').addItem('Sync selected booking','yohakSyncSelectedBooking').addToUi();
+  ygpStaff_();
+  SpreadsheetApp.getUi().createMenu('Yohak Ops')
+    .addItem('Sync selected booking','yohakSyncSelectedBooking')
+    .addSeparator()
+    .addItem('Create guest details link','yohakCreateGuestLink')
+    .addItem('Revoke guest details link','yohakRevokeGuestLink')
+    .addItem('Lock guest details for manifest','yohakLockGuestDetails')
+    .addToUi();
 }
 function yohakInstallStaging() {
+  ygpStaff_();
   var ss=SpreadsheetApp.getActive();
+  if(!ss||ss.getId()!==ygpConfig_().spreadsheetId)throw Error('Configure the exact staging spreadsheet ID first.');
   if(ss.getName().toUpperCase().indexOf('STAGING')<0)throw Error('Install and test in a STAGING workbook copy first.');
   if(ss.getSpreadsheetTimeZone()!=='Asia/Manila')throw Error('Set timezone to Asia/Manila.');
   var existing=ScriptApp.getProjectTriggers().some(function(t){return t.getHandlerFunction()==='yohakOpsOnEdit';});
   if(!existing)ScriptApp.newTrigger('yohakOpsOnEdit').forSpreadsheet(ss).onEdit().create();
   PropertiesService.getDocumentProperties().setProperty('YOH_BOOKING_OPS_ENABLED','true');
   yohakOpsOnOpen();
+}
+function onOpen() {
+  // Menu only for signed-in allowlisted staff; no automatic guest data access.
+  try {yohakOpsOnOpen();} catch(ignored) {}
 }
 // Production installer intentionally omitted: review test evidence and existing triggers first.
