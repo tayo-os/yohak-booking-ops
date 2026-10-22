@@ -8,6 +8,7 @@ const apply=process.argv.includes('--apply');
 const run=(exe,args,cwd=root)=>{const p=cp.spawnSync(exe,args,{cwd,stdio:'inherit'});if(p.status!==0)process.exit(p.status||1);};
 run(process.execPath,['test.cjs']);
 run(process.execPath,['--test','portal.test.cjs']);
+run(process.execPath,['--test','booking-entry.test.cjs']);
 const clasp=path.join(root,'node_modules/.bin/clasp');
 console.log('Target script:',config.scriptId);
 run(clasp,['show-file-status']);
@@ -16,7 +17,7 @@ if(!apply){console.log('Review the target and changed files. Nothing pushed. Use
 const backup=path.join(root,'.local','backup-'+Date.now());fs.mkdirSync(backup,{recursive:true,mode:0o700});
 fs.writeFileSync(path.join(backup,'.clasp.json'),JSON.stringify({scriptId:config.scriptId,rootDir:'.'}),{mode:0o600});
 run(clasp,['pull'],backup);
-const allowed=new Set(['.clasp.json','appsscript.json','Code.js','Code.gs','BookingOps.js','BookingOps.gs','GuestPortal.js','GuestPortal.gs','GuestPortal.html']);
+const allowed=new Set(['.clasp.json','appsscript.json','Code.js','Code.gs','BookingOps.js','BookingOps.gs','BookingEntry.gs','BookingEntry.js','GuestPortal.js','GuestPortal.gs','GuestPortal.html']);
 const unknown=fs.readdirSync(backup).filter(f=>!allowed.has(f));
 if(unknown.length)throw Error('Remote project contains additional files. Merge them deliberately before pushing: '+unknown.join(', '));
 for(const legacy of ['Code.js','Code.gs']){

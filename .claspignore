@@ -1,5 +1,6 @@
 **/**
 !BookingOps.gs
+!BookingEntry.gs
 !GuestPortal.gs
 !GuestPortal.html
 !appsscript.json

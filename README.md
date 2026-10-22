@@ -13,6 +13,12 @@ Staging candidate for a two-working-tab booking workbook and a private-link gues
 
 Start with [Staff workflow and security](docs/GUEST-INTAKE.md), [Cursor and Apps Script setup](docs/CURSOR-AND-APPS-SCRIPT.md), and [QA status](docs/QA-RESULTS.md).
 
+## SeaTours-inspired staff entry
+
+`BookingEntry.gs` adds a per-staff New booking form and a Create booking + guest slots action. It writes the booking, blank passengers and replay receipt in one Sheets batch. It remains private-STAGING only and cannot confirm payment/capacity or send messages. Read [staff entry and manifest rollout](docs/STAFF-ENTRY-AND-MANIFESTS.md).
+
+`tools/sheet-views.cjs` generates additive Booking Desk, website-only master view and clean Ops-manifest plans from workbook metadata. It never calls Google itself. Existing handwritten manifests and the official CG readiness checks must remain untouched.
+
 ## Scope
 
 - Stable booking references under a document lock.

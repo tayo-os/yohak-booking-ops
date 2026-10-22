@@ -47,3 +47,9 @@ The initial [GitHub Actions test run](https://github.com/tayo-os/yohak-booking-o
 - Website hosting, WooCommerce/form ingestion, Resend email delivery or reminders.
 
 No live activation or production readiness claim is made.
+
+## Staff-entry increment
+
+BookingEntry.gs adds a private-staging staff form and atomic booking/guest/audit batch. Seventeen added tests cover valid input, contact requirements, country-coded phone, dates, pax, source/partner rules, unknown versus zero paid, invalid amounts, anonymous access, the four-slot atomic request plan, unchanged-request replay and changed-payload rejection.
+
+These tests do not exercise the real Google create-booking routine. The candidate still needs owner-authorised upload and actual staging acceptance before any live automatic guest-creation claim.

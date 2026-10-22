@@ -13,4 +13,4 @@ jobs:
         with:
           node-version: '20'
       # These tests need only Node built-ins. Never expose Google credentials to CI.
-      - run: node test.cjs && node --test portal.test.cjs
+      - run: node test.cjs && node --test portal.test.cjs booking-entry.test.cjs

@@ -5,6 +5,7 @@ GitHub stores the source. The Google Apps Script project runs a separately uploa
 ## Files to edit
 
 - `BookingOps.gs`: booking reference, pencil timestamp, slot creation and trip matching.
+- `BookingEntry.gs`: per-staff new-booking form, contact/payment input checks and atomic booking-plus-passenger creation.
 - `GuestPortal.gs`: token access, data validation, Sheets adapter, audit and staff menu actions.
 - `GuestPortal.html`: mobile guest form; no real data embedded.
 - `appsscript.json`: runtime, scopes and Advanced Sheets service.
@@ -75,7 +76,7 @@ Do not store a token or Resend key in HTML.
 ## Owner-only staging installation
 
 1. Verify the bound spreadsheet is the intended private STAGING copy, timezone Asia/Manila.
-2. Review existing script files and triggers before uploading. Do not duplicate the original Code.gs definitions.
+2. Review existing script files and triggers before uploading. Upload BookingOps.gs, BookingEntry.gs, GuestPortal.gs, GuestPortal.html and appsscript.json; do not duplicate the original Code.gs definitions.
 3. Inspect the manifest. This version adds spreadsheet access by explicit ID, read-only Drive sharing inspection, signed-in email identification and Advanced Sheets API access.
 4. Configure properties above and approve the notice; review OAuth permissions using the owner account.
 5. Run `yohakInstallStaging`. Existing edit-handler triggers are reused; do not create duplicates.

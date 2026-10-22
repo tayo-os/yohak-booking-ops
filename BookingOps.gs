@@ -187,6 +187,9 @@ function yohakSyncSelectedBooking() {
 function yohakOpsOnOpen() {
   ygpStaff_();
   SpreadsheetApp.getUi().createMenu('Yohak Ops')
+    .addItem('New booking form','yohakNewBookingForm')
+    .addItem('Create booking + guest slots','yohakCreateBookingFromForm')
+    .addSeparator()
     .addItem('Sync selected booking','yohakSyncSelectedBooking')
     .addSeparator()
     .addItem('Create guest details link','yohakCreateGuestLink')
